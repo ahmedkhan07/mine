@@ -37,6 +37,47 @@
       opacity: 0;
     }
 
+    .btn-group {
+      margin-top: 30px;
+      animation: fadeIn 5s ease-in-out forwards;
+      opacity: 0;
+    }
+
+    .btn-custom {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      margin: 0 10px;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-accept {
+      background-color: #4cc9f0;
+      color: black;
+    }
+
+    .btn-decline {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    .btn-accept:hover {
+      background-color: #3a86ff;
+      color: white;
+    }
+
+    .btn-decline:hover {
+      background-color: #e63946;
+    }
+
+    .response {
+      font-size: 1.5rem;
+      margin-top: 40px;
+      display: none;
+      animation: fadeInText 1.5s ease-in-out forwards;
+    }
+
     @keyframes bounceIn {
       0% {
         transform: scale(0.5);
@@ -57,6 +98,17 @@
       }
     }
 
+    @keyframes fadeInText {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .heart {
       font-size: 2rem;
       animation: pulse 1.5s infinite;
@@ -64,15 +116,9 @@
     }
 
     @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.2);
-      }
-      100% {
-        transform: scale(1);
-      }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
@@ -83,16 +129,25 @@
       I never meant to hurt you. Please forgive me.  
       <div class="heart mt-2">💔</div>
     </div>
+
+    <div class="btn-group mt-4">
+      <button class="btn btn-custom btn-accept" onclick="handleResponse(true)">Accept</button>
+      <button class="btn btn-custom btn-decline" onclick="handleResponse(false)">Decline</button>
+    </div>
+
+    <div class="response mt-4" id="responseMessage"></div>
   </div>
 
   <script>
-    // Optional: Restart animation on click
-    document.querySelector(".sorry-container").addEventListener("click", function () {
-      const sorryText = document.querySelector(".sorry-text");
-      sorryText.style.animation = "none";
-      void sorryText.offsetWidth; // trigger reflow
-      sorryText.style.animation = "bounceIn 2s ease forwards";
-    });
+    function handleResponse(accepted) {
+      const message = document.getElementById('responseMessage');
+      if (accepted) {
+        message.innerHTML = "Thank you for forgiving me ❤️";
+      } else {
+        message.innerHTML = "I understand. I’ll always be sorry 💔";
+      }
+      message.style.display = "block";
+    }
   </script>
 </body>
 </html>
